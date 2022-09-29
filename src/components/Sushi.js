@@ -1,20 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 
-function Sushi(props) {
+function Sushi({oneSushi, emptyPlates, wallet}) {
+
+  const [hidden, setHidden] = useState(false)
+  if(wallet < oneSushi.price ){
+    document.getElementsByClassName("sushi")[0].style.display = "none"
+  }
+  
+
   return (
     <div className="sushi">
-      <div className="plate" onClick={/* Give me a callback! */ null}>
+      <div className="plate" onClick={() => {
+        emptyPlates(oneSushi)
+        setHidden(true)
+       
+      }}>
         {/* Tell me if this sushi has been eaten! */}
-        {false ? null : (
+        {hidden ? null : (
           <img
-            src={/* Give me an image source! */ null}
-            alt={/* Give me a name! */ "Sushi"}
+            src={oneSushi.img_url}
+            alt={"Sushi"}
             width="100%"
           />
         )}
       </div>
       <h4 className="sushi-details">
-        {/* Give me a name! */} - ${/* Give me a price! */}
+        {oneSushi.name} - ${oneSushi.price}
       </h4>
     </div>
   );
